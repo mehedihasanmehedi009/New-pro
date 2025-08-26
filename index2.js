@@ -33,6 +33,10 @@ document.getElementById("btn-money").addEventListener("click", function (e) {
   const Account = getInputValue("Account-Number");
 
   const Amount = getInputValueNumber("Amount-to");
+  if (Amount <= 0) {
+    alert("invalid amount");
+    return;
+  }
 
   const pin = getInputValueNumber("add-pin");
 
@@ -52,12 +56,40 @@ document.getElementById("btn-money").addEventListener("click", function (e) {
   setInnerText(total);
 
   const data = {
-    Name: "Add Money",
+    name: "Add Money",
     date: new Date().toLocaleTimeString(),
   };
   DateTime.push(data);
   console.log(DateTime);
 });
+
+document
+  .getElementById("TransacTions-button")
+  .addEventListener("click", function () {
+    const TransacTionsContainer = document.getElementById(
+      "TransacTions-container"
+    );
+    TransacTionsContainer.innerText = "";
+    for (const data of DateTime) {
+      const div = document.createElement("div");
+      div.innerHTML = `
+      <div class=" mt-5 bg-white rounded-lg p-3 flex justify-between items-center"> 
+            <div class="flex items-center">
+              <div class="rounded-full bg-slate-100 p-3 mr-2">
+                     <img class="mx-auto" src="./img/send1.png" alt="" />
+              </div>
+             <div>
+                 <h1  class="text-[16px]  font-bold" >${data.name}</h1>
+              <p>${data.date}</p>
+             </div>
+           </div>
+           <i class="fa-solid fa-ellipsis-vertical"></i>
+       </div>
+      
+      `;
+      TransacTionsContainer.appendChild(div);
+    }
+  });
 
 // Withdraw-money
 document
@@ -66,11 +98,15 @@ document
     e.preventDefault();
     const Amounts = parseInt(document.getElementById("Withdraw-amount").value);
     const balance = parseInt(document.getElementById("Balance").innerText);
+    if (Amounts <= 0 || Amounts > balance) {
+      alert("invalid number");
+      return;
+    }
     const total = balance - Amounts;
     setInnerText(total);
 
     const data = {
-      Name: "Cash Out",
+      name: "Cash Out",
       date: new Date().toLocaleTimeString(),
     };
     DateTime.push(data);
