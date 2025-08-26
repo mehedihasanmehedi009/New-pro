@@ -9,7 +9,7 @@ document.getElementById("Login").addEventListener("click", function (e) {
     document.getElementById("Mobile-number").value
   );
   const pinNumberValueConverted = parseInt(
-    document.getElementById("pin-number").value
+    document.getElementById("Pin-number").value
   );
   //   console.log(mobileNumberValueConverted, pinNumberValueConverted);
   if (
